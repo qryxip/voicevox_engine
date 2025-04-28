@@ -76,38 +76,6 @@ jobs:
             cudnn_url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/windows-x86_64/cudnn-windows-x86_64-8.9.7.29_cuda12-archive.zip
             zlib_url: http://www.winimage.com/zLibDll/zlib123dllx64.zip
             target: windows-nvidia
-          # Mac CPU (x64 arch)
-          - os: macos-13
-            architecture: "x64"
-            voicevox_core_asset_prefix: voicevox_core-osx-x64
-            onnxruntime_url: https://github.com/VOICEVOX/onnxruntime-builder/releases/download/voicevox_onnxruntime-1.17.3/voicevox_onnxruntime-osx-x86_64-1.17.3.tgz
-            target: macos-x64
-          # Mac CPU (arm64 arch)
-          - os: macos-14
-            architecture: "arm64"
-            voicevox_core_asset_prefix: voicevox_core-osx-arm64
-            onnxruntime_url: https://github.com/VOICEVOX/onnxruntime-builder/releases/download/voicevox_onnxruntime-1.17.3/voicevox_onnxruntime-osx-arm64-1.17.3.tgz
-            target: macos-arm64
-          # Linux CPU (x64 arch)
-          - os: ubuntu-22.04
-            architecture: "x64"
-            voicevox_core_asset_prefix: voicevox_core-linux-x64
-            onnxruntime_url: https://github.com/VOICEVOX/onnxruntime-builder/releases/download/voicevox_onnxruntime-1.17.3/voicevox_onnxruntime-linux-x64-1.17.3.tgz
-            target: linux-cpu-x64
-          # Linux CPU (arm64 arch)
-          - os: ubuntu-22.04-arm
-            architecture: "arm64"
-            voicevox_core_asset_prefix: voicevox_core-linux-arm64
-            onnxruntime_url: https://github.com/VOICEVOX/onnxruntime-builder/releases/download/voicevox_onnxruntime-1.17.3/voicevox_onnxruntime-linux-arm64-1.17.3.tgz
-            target: linux-cpu-arm64
-          # Linux NVIDIA GPU
-          - os: ubuntu-22.04
-            architecture: "x64"
-            voicevox_core_asset_prefix: voicevox_core-linux-x64
-            onnxruntime_url: https://github.com/VOICEVOX/onnxruntime-builder/releases/download/voicevox_onnxruntime-1.17.3/voicevox_onnxruntime-linux-x64-cuda-1.17.3.tgz
-            cuda_version: "12.8.1"
-            cudnn_url: https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-8.9.7.29_cuda12-archive.tar.xz
-            target: linux-nvidia
 
     runs-on: ${{ matrix.os }}
 
