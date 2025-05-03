@@ -31,6 +31,10 @@ ARG USE_GPU=false
 RUN --mount=type=secret,id=gh-token,env=GH_TOKEN <<EOF
     set -eux
 
+    set +x
+    [ -n "$GH_TOKEN" ]
+    set -x
+
     case "$USE_GPU" in
         true)
             TARGET=linux-nvidia ;;
@@ -38,11 +42,11 @@ RUN --mount=type=secret,id=gh-token,env=GH_TOKEN <<EOF
             case "$TARGETPLATFORM" in
                 linux/amd64)
                     TARGET=linux-cpu-x64 ;;
-                linux/arm64/v8)
+                linux/arm64)
                     TARGET=linux-cpu-arm64 ;;
                 *)
                     # shellcheck disable=SC2016
-                    echo 'Unexpected value for `$TARGETPLATFORM`' >&2
+                    echo 'Unexpected value for `$TARGETPLATFORM`: '"$TARGETPLATFORM" >&2
                     exit 1
             esac ;;
         *)
