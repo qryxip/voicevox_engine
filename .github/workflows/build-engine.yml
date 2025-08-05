@@ -30,7 +30,7 @@ on:
 
 env:
   VOICEVOX_RESOURCE_VERSION: "0.24.1"
-  VOICEVOX_CORE_AND_DOWNLOADER_VERSION: "0.16.0" # FIXME: VOICEVOX/voicevox_core#1089が入っていない。またリトライ機構も無い
+  VOICEVOX_CORE_AND_DOWNLOADER_VERSION: "0.16.1-dev.20250814132443"
   VOICEVOX_ONNXRUNTIME_VERSION: "voicevox_onnxruntime-1.17.3"
   VOICEVOX_ADDITIONAL_LIBRARIES_VERSION: "0.2.0" # FIXME: VOICEVOX/voicevox_additional_libraries#5
   VOICEVOX_CORE_VVM_VERSION: "0.16.0"
@@ -251,7 +251,7 @@ jobs:
 
           curl -fLO --retry 3 --retry-delay 5 \
             --output-dir "$RUNNER_TEMP" \
-            https://github.com/VOICEVOX/voicevox_core/releases/download/"$VOICEVOX_CORE_AND_DOWNLOADER_VERSION"/$downloader_name
+            https://github.com/qryxip/voicevox_core/releases/download/"$VOICEVOX_CORE_AND_DOWNLOADER_VERSION"/$downloader_name
 
           downloader_path=$RUNNER_TEMP/$downloader_name
 
@@ -268,6 +268,7 @@ jobs:
         run: |
           ${{ steps.download-downloader.outputs.downloader-path }} \
             --only c-api \
+            --c-api-repo qryxip/voicevox_core \
             --c-api-version "$VOICEVOX_CORE_AND_DOWNLOADER_VERSION" \
             --cpu-arch ${{ matrix.architecture }} \
             -o download/core
@@ -335,7 +336,6 @@ jobs:
           key: ${{ steps.additional-libraries-cache-restore.outputs.cache-primary-key }}
           path: download/core/additional_libraries
 
-      # FIXME: 10期生およびソングモデル(0.1.0-tmp-song.0)が欠けている状態
       - name: <Setup> Download models
         if: steps.models-cache-restore.outputs.cache-hit != 'true'
         run: |
